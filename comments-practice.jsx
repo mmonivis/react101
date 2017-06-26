@@ -26,33 +26,81 @@ var data = [
       'Bard',
       'Samurai swordsman'
     ]
-  }
+  },
+  {
+    author:{
+      avatar: "https://png.icons8.com/trinity/color/1600/",
+      name: "Trinity"
+    },
+    commentHeading: "I like spoons.",
+    text: "Don't think you are. Know you are.",
+    date: "Three days ago",
+    userBadge: [
+      'The Father',
+      'The Son',
+      'The Holy Spirit'
+    ]
+  },
 ]
+
+function UserInfo(props) {
+    return(
+        <div className="UserInfo">
+            <Avatar author={props.author} />
+            <div className="UserInfo-name">
+              {props.author.name}
+            </div>
+        </div>
+    )
+}
+
+function Avatar(props){
+    return(
+        <div>
+            <img className="Avatar"
+              src={props.author.avatar}
+              alt={props.author.name}
+              width="200px"
+            />
+        </div>
+    )
+}
+
+function Badge(props) {
+    return(
+        <div className="badge">{props.userBadge}</div>
+    )
+}
+
+function CommentBody(props) {
+    return(
+        <div className="Comment-body">
+            <h1>{props.commentHeading}</h1>
+            <div className="Comment-text">{props.text}</div>
+            <div className="Comment-date">
+              {props.date}
+            </div>
+        </div>
+    )
+}
 
 function Comment(props) {
   return (
     <div className="Comment">
-      <div className="UserInfo">
-        <img className="Avatar"
-          src={props.author.avatar}
-          alt={props.author.name}
-        />
-        <div className="UserInfo-name">
-          {props.author.name}
-        </div>
-      </div>
-      <div className="Comment-body">
-        <h1>{props.commentHeading}</h1>
-        <div className="Comment-text">{props.text}</div>
-        <div className="Comment-date">
-          {props.date}
-        </div>
-      </div>
-      <div className="UserBadges">
-        <div className="badge">{props.userBadge[0]}</div>
-        <div className="badge">{props.userBadge[1]}</div>
-        <div className="badge">{props.userBadge[2]}</div>
-      </div>
+    <UserInfo author={props.author} />
+    <CommentBody
+        commentHeading={props.commentHeading}
+        text={props.text}
+        date={props.date}
+    />
+    <div className="UserBadges">
+        {props.userBadge.map((badge, index)=>{
+            return(<Badge key={index} userBadge={badge} />)
+        })}
+      { /* <Badge userBadge={props.userBadge[0]} /> */ }
+      { /* <Badge userBadge={props.userBadge[1]} /> */ }
+      { /* <Badge userBadge={props.userBadge[2]} /> */ }
+    </div>
     </div>
   );
 }
